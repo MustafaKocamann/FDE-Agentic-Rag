@@ -1,6 +1,10 @@
 # Environment variables
 .env
 .env.*
+.envrc
+env/
+env.bak/
+venv.bak/
 
 # Python virtual environment
 .venv/
@@ -9,14 +13,114 @@ ENV/
 
 # Python cache & compiled files
 __pycache__/
-*.py[cod]
+*.py[codz]
 *$py.class
+*.so
+*.py.cover
+*.cover
 
-# Jupyter Notebook checkpoints
+# Distribution & packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+.pypirc
+
+# Logs & temporary files
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+*.pid
+tempCodeRunnerFile.py
+
+# Testing & coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Type checkers & linters
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+cython_debug/
+
+# Databases & local stores
+db.sqlite3
+db.sqlite3-journal
+local_settings.py
+instance/
+.webassets-cache
+.scrapy
+*.rdb
+*.aof
+
+# Jupyter & IPython
 .ipynb_checkpoints
+profile_default/
+ipython_config.py
 
-# IDE / OS files
+# Build tools & environment managers
+.pybuilder/
+target/
+.pdm-python
+.pdm-build/
+.pixi
+__pypackages__/
+.abstra/
+
+# Services & queues
+celerybeat-schedule
+celerybeat.pid
+mnesia/
+rabbitmq/
+rabbitmq-data/
+activemq-data/
+
+# Documentation & Translations
+*.mo
+*.pot
+docs/_build/
+/site
+*.sage.py
+
+# IDE, Editor & OS files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+.spyderproject
+.spyproject
+.ropeproject
+
+# App specific
+marimo/_static/
+marimo/_lsp/
+__marimo__/
+.streamlit/secrets.toml
