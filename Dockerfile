@@ -21,7 +21,8 @@ COPY requirements.txt .
 # 3. Kalan gereksinimleri kur
 RUN pip install --no-cache-dir --upgrade --root-user-action=ignore pip \
     && pip install --no-cache-dir --root-user-action=ignore torch --index-url https://download.pytorch.org/whl/cpu \
-    && pip install --no-cache-dir --root-user-action=ignore -r requirements.txt
+    && pip install --no-cache-dir --root-user-action=ignore -r requirements.txt \
+    && python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
 
 # Kaynak kodları kopyala
 COPY . .

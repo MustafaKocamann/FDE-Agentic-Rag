@@ -258,7 +258,19 @@ async function askAgent(q) {
             body: JSON.stringify({ question: cleanQ }),
         });
 
-        const data = await res.json();
+        let data = null;
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+            data = await res.json();
+        } else {
+            const rawHtml = await res.text();
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = rawHtml;
+            const titleOrHeading = tempDiv.querySelector('h1, h2, title, p')?.textContent?.trim() || '';
+            const cleanSnippet = titleOrHeading || rawHtml.replace(/<[^>]*>/g, ' ').slice(0, 160).trim();
+            throw new Error(`Server returned HTTP ${res.status}: ${cleanSnippet || res.statusText}`);
+        }
+
         removeThinkingIndicator();
 
         if (!res.ok) {
