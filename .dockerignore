@@ -1,0 +1,35 @@
+# Ortam ve hassas değişkenler
+.env
+.env.*
+*.env
+
+# Git versiyon kontrolü
+.git
+.gitignore
+
+# Python önbellek ve derleme dosyaları
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Sanal ortamlar (Virtual environments)
+.venv
+venv
+env
+ENV
+
+# Testler ve test önbellekleri
+tests
+.pytest_cache
+.coverage
+htmlcov
+
+# Log ve geçici dosyalar
+*.log
+
+# Projeye özgü notebook, döküman ve büyük medya dosyaları
+agentic_rag.ipynb
+image.png
+docs/
+.DS_Store

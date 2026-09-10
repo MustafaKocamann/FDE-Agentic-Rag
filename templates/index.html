@@ -1,89 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ app_name }} - Enterprise HR Copilot</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <script src="/static/js/app.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
 </head>
+
 <body>
     <div class="shell">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div>
-                <span class="brand-badge">EMPOWER AI</span>
-                <h1>{{ app_name }}</h1>
-                <p class="muted">Autonomous agentic HR policy and employee support assistant powered by LangGraph, Pinecone & Gemini.</p>
-                <div class="workflow-card">
-                    <h3>Workflow Architecture</h3>
-                    <div class="flow-step">1. Intent Classification / Router</div>
-                    <div class="flow-step">2. Private Pinecone Vector Retrieval</div>
-                    <div class="flow-step">3. LLM Evidence Evaluation</div>
-                    <div class="flow-step">4. Tavily Web Fallback & Query Rewrite</div>
-                </div>
+                <div class="brand-badge">FDE Project</div>
+                <h1>HR Policy<br />Agentic RAG</h1>
+                <p class="muted">Private company HR knowledge first. External web only when evidence is weak.</p>
             </div>
-            <div>
-                <button id="openUpload" class="secondary-btn" style="width: 100%;">Upload Knowledge Doc</button>
+            <div class="workflow-card">
+                <h3>LangGraph Workflow</h3>
+                <div class="flow-step">1. Route question</div>
+                <div class="flow-step">2. Retrieve private KB</div>
+                <div class="flow-step">3. Grade evidence</div>
+                <div class="flow-step">4. Web fallback if weak</div>
+                <div class="flow-step">5. Rewrite & retry</div>
+                <div class="flow-step">6. Grounded answer</div>
             </div>
+            <button id="openUpload" class="secondary-btn">+ Add HR Document</button>
         </aside>
 
-        <!-- Main Chat Area -->
         <main class="main">
             <header class="topbar">
-                <div><span class="status-dot"></span>Agent Active & Ready</div>
-                <div class="pill">{{ app_name }}</div>
+                <div>
+                    <span class="status-dot"></span>
+                    <span>Employee Knowledge Copilot</span>
+                </div>
+                <span class="pill">Agentic RAG</span>
             </header>
-
-            <div id="chat" class="chat-area">
+            <section id="chat" class="chat-area">
                 <div class="message assistant">
-                    <div class="avatar">AI</div>
+                    <div class="avatar">HR</div>
                     <div class="bubble">
-                        Hello! I am your Enterprise HR Assistant. Ask me anything about employee policies, benefits, leave, payroll, or onboarding.
+                        <strong>How can I help with HR policies or employee support?</strong>
+                        <p>Try: “How many annual leave days do employees receive?” or ask something that may require
+                            current external employment information.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="composer-wrap">
+            </section>
+            <section class="composer-wrap">
                 <div class="examples">
-                    <button type="button" class="example">What is our remote work policy?</button>
-                    <button type="button" class="example">How many annual leave days do I have?</button>
-                    <button type="button" class="example">What are the health insurance benefits?</button>
+                    <button class="example">How many annual leave days do employees receive?</button>
+                    <button class="example">What is our remote work policy?</button>
+                    <button class="example">What are the latest public holiday rules in India?</button>
                 </div>
                 <form id="chatForm" class="composer">
-                    <textarea id="question" rows="1" placeholder="Ask a question about HR policies..."></textarea>
-                    <button type="submit" class="send-btn">Send</button>
+                    <textarea id="question" rows="2" placeholder="Ask an HR policy or employee support question..."
+                        required></textarea>
+                    <button type="submit" class="send-btn">Ask Agent</button>
                 </form>
-            </div>
+            </section>
         </main>
-
-        <!-- Trace Panel -->
         <aside class="trace-panel">
-            <h2>Workflow Trace</h2>
-            <p class="muted" style="font-size: 13px;">Live trace of LangGraph decision paths and retrieval state.</p>
+            <h2>Agent Trace</h2>
+            <p class="muted">Watch LangGraph decisions while the request runs.</p>
             <div id="trace" class="trace-list">
-                <div class="empty">No trace yet.</div>
+                <div class="empty">No request yet.</div>
             </div>
             <div class="source-box">
-                <span>Active Source</span>
-                <strong id="sourceUsed">None</strong>
+                <span>Final Source</span>
+                <strong id="sourceUsed">—</strong>
             </div>
         </aside>
     </div>
-
-    <!-- Upload Modal -->
     <div id="uploadModal" class="modal hidden">
         <div class="modal-card">
             <div class="modal-head">
-                <h2>Upload Knowledge Document</h2>
-                <button id="closeUpload" type="button">&times;</button>
+                <h2>Ingest HR Document</h2><button id="closeUpload">×</button>
             </div>
-            <p class="muted" style="font-size: 13px; margin: 10px 0;">Supported formats: PDF, DOCX, TXT, MD.</p>
-            <input type="file" id="fileInput" accept=".pdf,.txt,.md,.docx">
-            <input type="password" id="adminKey" placeholder="Admin API Key">
-            <button id="uploadBtn" type="button" class="send-btn full">Upload & Ingest</button>
+            <p class="muted">Upload PDF, TXT, Markdown, or DOCX. The document is chunked, embedded, and indexed into
+                Pinecone.</p>
+            <input id="adminKey" type="password" placeholder="Admin API key" />
+            <input id="fileInput" type="file" accept=".pdf,.txt,.md,.docx" />
+            <button id="uploadBtn" class="send-btn full">Index Document</button>
             <div id="uploadStatus" class="upload-status"></div>
         </div>
     </div>
+    <script src="/static/js/app.js"></script>
 </body>
+
 </html>
