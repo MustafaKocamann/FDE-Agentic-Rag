@@ -13,11 +13,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Bağımlılıkları kopyala ve kur (Docker katman önbelleği için önce requirements)
+# Bağımlılıkları kopyala ve kur
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+# 1. pip uyarısını sustur ve güncelle
+# 2. PyTorch CPU sürümünü kurarak 5 GB'lık gereksiz NVIDIA CUDA paketlerini ve DigitalOcean disk aşımını engelle
+# 3. Kalan gereksinimleri kur
+RUN pip install --no-cache-dir --upgrade --root-user-action=ignore pip \
+    && pip install --no-cache-dir --root-user-action=ignore torch --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir --root-user-action=ignore -r requirements.txt
 
 # Kaynak kodları kopyala
 COPY . .
