@@ -4,86 +4,273 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ app_name }}</title>
+    <title>Empower AI - Enterprise HR Agentic RAG</title>
+    <meta name="description" content="Autonomous enterprise HR policy and employee support copilot powered by LangGraph, Pinecone, and Gemini." />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Markdown Parser (Marked.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 
 <body>
+    <div class="ambient-glow"></div>
+
     <div class="shell">
-        <aside class="sidebar">
-            <div>
-                <div class="brand-badge">FDE Project</div>
-                <h1>HR Policy<br />Agentic RAG</h1>
-                <p class="muted">Private company HR knowledge first. External web only when evidence is weak.</p>
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-wrap">
+                    <div class="brand-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="brand-title">Empower AI</div>
+                        <div class="brand-tag">FDE Production Ready</div>
+                    </div>
+                </div>
+
+                <div class="org-card">
+                    <div class="org-avatar">PP</div>
+                    <div class="org-meta">
+                        <span class="org-name">People Prime Technologies</span>
+                        <span class="org-sub">5,000+ Employees • HR Hub</span>
+                    </div>
+                </div>
+
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                        <span>LangGraph State Machine</span>
+                    </div>
+                    <div class="workflow-steps">
+                        <div class="flow-step" data-step="route"><span class="step-num">01</span> Intent Classifier & Router</div>
+                        <div class="flow-step" data-step="retrieve"><span class="step-num">02</span> Pinecone Private KB Retrieval</div>
+                        <div class="flow-step" data-step="grade"><span class="step-num">03</span> LLM Evidence Evaluation</div>
+                        <div class="flow-step" data-step="web"><span class="step-num">04</span> Tavily Web Search Fallback</div>
+                        <div class="flow-step" data-step="rewrite"><span class="step-num">05</span> Self-Correction & Rewrite</div>
+                        <div class="flow-step" data-step="generate"><span class="step-num">06</span> Grounded Synthesis & Citation</div>
+                    </div>
+                </div>
             </div>
-            <div class="workflow-card">
-                <h3>LangGraph Workflow</h3>
-                <div class="flow-step">1. Route question</div>
-                <div class="flow-step">2. Retrieve private KB</div>
-                <div class="flow-step">3. Grade evidence</div>
-                <div class="flow-step">4. Web fallback if weak</div>
-                <div class="flow-step">5. Rewrite & retry</div>
-                <div class="flow-step">6. Grounded answer</div>
+
+            <div class="sidebar-bottom">
+                <button id="openUpload" class="primary-btn upload-action-btn">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span>Index New HR Policy</span>
+                </button>
+                <div class="system-health">
+                    <span class="health-pulse"></span>
+                    <span>Pinecone & Gemini 3.5 Operational</span>
+                </div>
             </div>
-            <button id="openUpload" class="secondary-btn">+ Add HR Document</button>
         </aside>
 
+        <!-- Main Chat Area -->
         <main class="main">
             <header class="topbar">
-                <div>
-                    <span class="status-dot"></span>
-                    <span>Employee Knowledge Copilot</span>
+                <div class="topbar-left">
+                    <button id="toggleSidebar" class="icon-btn mobile-only" aria-label="Toggle Sidebar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="page-title-group">
+                        <div class="top-indicator">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Autonomous HR Copilot</span>
+                        </div>
+                        <h1 class="main-heading">Corporate Policy & Support Intelligence</h1>
+                    </div>
                 </div>
-                <span class="pill">Agentic RAG</span>
+
+                <div class="topbar-right">
+                    <span class="badge-pill">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Zero Hallucination Guard
+                    </span>
+                    <button id="toggleTrace" class="icon-btn mobile-only" aria-label="Toggle Trace">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 14 14"></polyline>
+                        </svg>
+                    </button>
+                </div>
             </header>
+
             <section id="chat" class="chat-area">
-                <div class="message assistant">
-                    <div class="avatar">HR</div>
+                <div class="message assistant welcome-card">
+                    <div class="avatar-wrap">
+                        <div class="avatar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                                <circle cx="12" cy="5" r="2"></circle>
+                                <path d="M12 7v4"></path>
+                                <line x1="8" y1="16" x2="8" y2="16"></line>
+                                <line x1="16" y1="16" x2="16" y2="16"></line>
+                            </svg>
+                        </div>
+                    </div>
                     <div class="bubble">
-                        <strong>How can I help with HR policies or employee support?</strong>
-                        <p>Try: “How many annual leave days do employees receive?” or ask something that may require
-                            current external employment information.</p>
+                        <div class="bubble-header">
+                            <span class="sender-name">Empower AI HR Assistant</span>
+                            <span class="badge-tag">Private KB Verified</span>
+                        </div>
+                        <div class="bubble-content">
+                            <p><strong>Welcome! How can I assist you with People Prime Technologies policies today?</strong></p>
+                            <p>I cross-verify all answers against our internal Pinecone Knowledge Base first. If company policies lack recent public info (e.g., regional statutory updates), I safely consult verified web sources with full citations.</p>
+                        </div>
                     </div>
                 </div>
             </section>
+
             <section class="composer-wrap">
-                <div class="examples">
-                    <button class="example">How many annual leave days do employees receive?</button>
-                    <button class="example">What is our remote work policy?</button>
-                    <button class="example">What are the latest public holiday rules in India?</button>
+                <div class="examples-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Suggested Prompts</span>
                 </div>
+                <div class="examples">
+                    <button type="button" class="example">
+                        <span>How many annual leave days do employees receive?</span>
+                    </button>
+                    <button type="button" class="example">
+                        <span>What is our remote work & home office stipend policy?</span>
+                    </button>
+                    <button type="button" class="example">
+                        <span>What are the latest statutory public holidays announced this month?</span>
+                    </button>
+                </div>
+
                 <form id="chatForm" class="composer">
-                    <textarea id="question" rows="2" placeholder="Ask an HR policy or employee support question..."
-                        required></textarea>
-                    <button type="submit" class="send-btn">Ask Agent</button>
+                    <div class="textarea-wrapper">
+                        <textarea id="question" rows="1" placeholder="Ask about employee benefits, leave, payroll, conduct, or onboarding..." required></textarea>
+                    </div>
+                    <button type="submit" class="send-btn" id="sendBtn" title="Send Question (Enter)">
+                        <span>Ask Agent</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
                 </form>
+                <div class="composer-footer">
+                    <span>Press <strong>Enter</strong> to send • <strong>Shift + Enter</strong> for new line</span>
+                    <span>LangSmith Active Tracing</span>
+                </div>
             </section>
         </main>
-        <aside class="trace-panel">
-            <h2>Agent Trace</h2>
-            <p class="muted">Watch LangGraph decisions while the request runs.</p>
-            <div id="trace" class="trace-list">
-                <div class="empty">No request yet.</div>
+
+        <!-- Right Trace Panel -->
+        <aside class="trace-panel" id="tracePanel">
+            <div class="panel-header">
+                <div>
+                    <h2>Execution Graph Trace</h2>
+                    <p class="muted">Live deterministic decisions from LangGraph StateGraph.</p>
+                </div>
+                <div class="live-status-badge">
+                    <span class="status-dot green"></span> Live
+                </div>
             </div>
-            <div class="source-box">
-                <span>Final Source</span>
-                <strong id="sourceUsed">—</strong>
+
+            <div class="source-summary-card">
+                <div class="source-label">Active Response Source</div>
+                <div class="source-display" id="sourceUsedBox">
+                    <span id="sourceUsedBadge" class="source-tag neutral">Awaiting Prompt</span>
+                    <strong id="sourceUsed">—</strong>
+                </div>
+            </div>
+
+            <div class="trace-feed-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                <span>State Decisions & Evidence Grades</span>
+            </div>
+
+            <div id="trace" class="trace-list">
+                <div class="empty-state">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 14 14"></polyline>
+                    </svg>
+                    <p>No execution trace yet.<br>Ask a question to watch LangGraph evaluate evidence in real-time.</p>
+                </div>
             </div>
         </aside>
     </div>
-    <div id="uploadModal" class="modal hidden">
+
+    <!-- Upload Document Modal -->
+    <div id="uploadModal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
         <div class="modal-card">
             <div class="modal-head">
-                <h2>Ingest HR Document</h2><button id="closeUpload">×</button>
+                <div class="modal-title-wrap">
+                    <div class="modal-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="12" y1="18" x2="12" y2="12"/>
+                            <line x1="9" y1="15" x2="15" y2="15"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2>Ingest Knowledge Document</h2>
+                        <p class="muted">Chunk, embed and index into Pinecone vector index.</p>
+                    </div>
+                </div>
+                <button id="closeUpload" class="close-btn" type="button" aria-label="Close modal">&times;</button>
             </div>
-            <p class="muted">Upload PDF, TXT, Markdown, or DOCX. The document is chunked, embedded, and indexed into
-                Pinecone.</p>
-            <input id="adminKey" type="password" placeholder="Admin API key" />
-            <input id="fileInput" type="file" accept=".pdf,.txt,.md,.docx" />
-            <button id="uploadBtn" class="send-btn full">Index Document</button>
-            <div id="uploadStatus" class="upload-status"></div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="adminKey">Admin Security Key</label>
+                    <input id="adminKey" type="password" placeholder="Enter admin API key..." autocomplete="off" />
+                </div>
+
+                <div class="form-group">
+                    <label>Select Document File</label>
+                    <div class="dropzone" id="dropzone">
+                        <input id="fileInput" type="file" accept=".pdf,.txt,.md,.docx" />
+                        <div class="dropzone-content">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            <span class="dropzone-text" id="dropzoneText">Drag & drop policy file here, or <strong>browse</strong></span>
+                            <span class="dropzone-hint">Supports PDF, Markdown (.md), DOCX, TXT (up to 25MB)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="uploadBtn" type="button" class="primary-btn full-width">
+                    <span id="uploadBtnText">Start Embed & Ingest</span>
+                    <div id="uploadSpinner" class="spinner hidden"></div>
+                </button>
+
+                <div id="uploadStatus" class="upload-status-box hidden"></div>
+            </div>
         </div>
     </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
     <script src="/static/js/app.js"></script>
 </body>
 
