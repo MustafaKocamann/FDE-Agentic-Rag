@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }} - Enterprise HR Copilot</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <div class="shell">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div>
+                <span class="brand-badge">EMPOWER AI</span>
+                <h1>{{ app_name }}</h1>
+                <p class="muted">Autonomous agentic HR policy and employee support assistant powered by LangGraph, Pinecone & Gemini.</p>
+                <div class="workflow-card">
+                    <h3>Workflow Architecture</h3>
+                    <div class="flow-step">1. Intent Classification / Router</div>
+                    <div class="flow-step">2. Private Pinecone Vector Retrieval</div>
+                    <div class="flow-step">3. LLM Evidence Evaluation</div>
+                    <div class="flow-step">4. Tavily Web Fallback & Query Rewrite</div>
+                </div>
+            </div>
+            <div>
+                <button id="openUpload" class="secondary-btn" style="width: 100%;">Upload Knowledge Doc</button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="main">
+            <header class="topbar">
+                <div><span class="status-dot"></span>Agent Active & Ready</div>
+                <div class="pill">{{ app_name }}</div>
+            </header>
+
+            <div id="chat" class="chat-area">
+                <div class="message assistant">
+                    <div class="avatar">AI</div>
+                    <div class="bubble">
+                        Hello! I am your Enterprise HR Assistant. Ask me anything about employee policies, benefits, leave, payroll, or onboarding.
+                    </div>
+                </div>
+            </div>
+
+            <div class="composer-wrap">
+                <div class="examples">
+                    <button type="button" class="example">What is our remote work policy?</button>
+                    <button type="button" class="example">How many annual leave days do I have?</button>
+                    <button type="button" class="example">What are the health insurance benefits?</button>
+                </div>
+                <form id="chatForm" class="composer">
+                    <textarea id="question" rows="1" placeholder="Ask a question about HR policies..."></textarea>
+                    <button type="submit" class="send-btn">Send</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Trace Panel -->
+        <aside class="trace-panel">
+            <h2>Workflow Trace</h2>
+            <p class="muted" style="font-size: 13px;">Live trace of LangGraph decision paths and retrieval state.</p>
+            <div id="trace" class="trace-list">
+                <div class="empty">No trace yet.</div>
+            </div>
+            <div class="source-box">
+                <span>Active Source</span>
+                <strong id="sourceUsed">None</strong>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal hidden">
+        <div class="modal-card">
+            <div class="modal-head">
+                <h2>Upload Knowledge Document</h2>
+                <button id="closeUpload" type="button">&times;</button>
+            </div>
+            <p class="muted" style="font-size: 13px; margin: 10px 0;">Supported formats: PDF, DOCX, TXT, MD.</p>
+            <input type="file" id="fileInput" accept=".pdf,.txt,.md,.docx">
+            <input type="password" id="adminKey" placeholder="Admin API Key">
+            <button id="uploadBtn" type="button" class="send-btn full">Upload & Ingest</button>
+            <div id="uploadStatus" class="upload-status"></div>
+        </div>
+    </div>
+</body>
+</html>

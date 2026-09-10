@@ -1,8 +1,10 @@
+from dotenv import load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
+load_dotenv(BASE_DIR / ".env")
 
 
 class Settings(BaseSettings):
@@ -14,7 +16,7 @@ class Settings(BaseSettings):
     pinecone_index_name: str = "fde-rag"
     pinecone_namespace: str = "fde-kb"
     embedding_model: str = "all-MiniLM-L6-v2"
-    google_model: str = "gemini-2.5-flash"
+    google_model: str = "gemini-3.5-flash"
     top_k: int = 4
     max_retries: int = 1
     admin_api_key: str = "change-me-in-production"
